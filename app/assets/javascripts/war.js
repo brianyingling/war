@@ -47,32 +47,58 @@ function create_deck() {
 }
 
 function play_hand() {
-  // reveal cards
+  // multidimensional array
+  // [value, suit], e.g. [2, 'H']
   $('#player_hand').text(player_hand[0]);
   $('#computer_hand').text(computer_hand[0]);
   if(player_hand[0][0] > computer_hand[0][0]) {
     player_hand.push(computer_hand.shift());
     player_hand.push(player_hand.shift());
   }
-  else {
+  else if(player_hand[0][0] < computer_hand[0][0]) {
     computer_hand.push(player_hand.shift());
     computer_hand.push(computer_hand.shift());
-
   }
+  else {
+    tie_breaker(2);
+  }
+
   $('#players_cards').html(player_hand.length);
   $('#computers_cards').html(computer_hand.length);
+  $('#total_cards').html(player_hand.length + computer_hand.length);
   check_for_winner();
-  c++;
+}
+
+function tie_breaker(counter) {
+  var war_player_hand = [];
+  var war_comp_hand = [];
+  for(var i = 0; i < counter; i++) {
+    war_player_hand.push(player_hand.shift() );
+    war_comp_hand.push(computer_hand.shift() );
+  }
+  if(_.last(war_player_hand)[0] > _.last(war_comp_hand)[0]) {
+    _.each(war_player_hand, function(hand){player_hand.push(hand)});
+    _.each(war_comp_hand, function(hand){player_hand.push(hand)});
+  }
+  else {
+    _.each(war_comp_hand, function(hand){computer_hand.push(hand)});
+    _.each(war_player_hand, function(hand){computer_hand.push(hand)});
+  }
 }
 
 function check_for_winner() {
+  if((player_hand.length + computer_hand.length) != 52) {
+    alert('error');
+  }
   if(player_hand.length == 52) {
     alert('player wins!');
     clearInterval(timer);
-  } else if(computer_hand.length == 52) {
+  }
+  else if(computer_hand.length == 52) {
     alert('computer wins!');
     clearInterval(timer);
-  } else {
+  }
+  else {
     return false;
   }
 }
