@@ -11,6 +11,7 @@ var computer_hand = [];
 var game_started = false;
 var timer;
 var c = 0;
+var rounds = 0;
 
 // plays until a winner
 function speed_play() {
@@ -39,7 +40,7 @@ function create_deck() {
   var suits = ['H','D','C','S'];
 
   for(var i=0; i<suits.length; i++) {
-    for(var j=0; j<13; j++) {
+    for(var j=2; j<15; j++) {
       deck.push([j,suits[i]]);
     }
   }
@@ -67,6 +68,7 @@ function play_hand() {
   $('#computers_cards').html(computer_hand.length);
   $('#total_cards').html(player_hand.length + computer_hand.length);
   check_for_winner();
+  $('#rounds').html(rounds++);
 }
 
 function tie_breaker(counter) {
@@ -76,31 +78,53 @@ function tie_breaker(counter) {
     war_player_hand.push(player_hand.shift() );
     war_comp_hand.push(computer_hand.shift() );
   }
+  var tie_breaker_cards = war_player_hand.concat(war_comp_hand);
   if(_.last(war_player_hand)[0] > _.last(war_comp_hand)[0]) {
-    _.each(war_player_hand, function(hand){player_hand.push(hand)});
-    _.each(war_comp_hand, function(hand){player_hand.push(hand)});
+    _.each(tie_breaker_cards, function(hand){player_hand.push(hand)});
   }
   else {
-    _.each(war_comp_hand, function(hand){computer_hand.push(hand)});
-    _.each(war_player_hand, function(hand){computer_hand.push(hand)});
+    _.each(tie_breaker_cards, function(hand){computer_hand.push(hand)});
   }
 }
 
 function check_for_winner() {
+  var winner;
   if((player_hand.length + computer_hand.length) != 52) {
     alert('error');
   }
-  if(player_hand.length == 52) {
-    alert('player wins!');
-    clearInterval(timer);
+  if(player_hand.length == 52 || computer_hand.length == 52) {
+    if(player_hand.length == 52) {
+      alert('player wins!');
+      clearInterval(timer);
+      winner = true;
+      rounds = 0;
+    }
+    else if(computer_hand.length == 52) {
+      alert('computer wins!');
+      clearInterval(timer);
+      winner = false;
+      rounds = 0;
+    }
+    else {
+      return false;
+    }
+    var token = $('input[name=authenticity_token]').val();
+
+    // send winner data via AJAX
+    $.ajax({
+      dataType:'json',
+      type:'POST',
+      url:'/games',
+      data:{authenticity_token:token,result:winner}
+    }).done(display_leaderboard)
   }
-  else if(computer_hand.length == 52) {
-    alert('computer wins!');
-    clearInterval(timer);
+
+  function display_leaderboard(msg) {
+
   }
-  else {
-    return false;
-  }
+
+
+
 }
 
 

@@ -3,6 +3,11 @@
   #player_hand.card
   #deck.card
   #computer_hand.card
+#leaderboard
+  .record
+  - @leaderboard.each do |user|
+    = user[0]
+    = user[1]
 .cards
   %div
     %span "Player's Cards: "
@@ -13,6 +18,9 @@
   %div
     %span "Total: "
     %span#total_cards
+  %div
+    %span "Rounds :"
+    %span#rounds
 =button_tag "Start Game", :id=>'startgame'
 =button_tag "Play Hand", :id=>'playhand'
 =button_tag "Speed Play", :id=>'speedplay'

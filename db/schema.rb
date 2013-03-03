@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130301215614) do
+ActiveRecord::Schema.define(:version => 20130303184552) do
 
   create_table "games", :force => true do |t|
     t.string  "name"
-    t.integer "player_id"
+    t.integer "user_id"
     t.boolean "result"
   end
 
