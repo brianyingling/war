@@ -1,26 +1,28 @@
-%h1 New Game
-#board
-  #player_hand.card
-  #deck.card
-  #computer_hand.card
-#leaderboard
-  .record
-  - @leaderboard.each do |user|
-    = user[0]
-    = user[1]
-.cards
-  %div
-    %span "Player's Cards: "
-    %span#players_cards
-  %div
-    %span "Computer's Cards: "
-    %span#computers_cards
-  %div
-    %span "Total: "
-    %span#total_cards
-  %div
-    %span "Rounds :"
-    %span#rounds
-=button_tag "Start Game", :id=>'startgame'
-=button_tag "Play Hand", :id=>'playhand'
-=button_tag "Speed Play", :id=>'speedplay'
+.row
+  .twelve.columns
+    %h1 New Game
+    #board
+      #player_hand.card
+      #deck.card
+      #computer_hand.card
+    #leaderboard
+      .record
+      - @leaderboard.each do |user|
+        = user[0]
+        = user[1]
+    .cards
+      %div
+        %span "Player's Cards: "
+        %span#players_cards
+      %div
+        %span "Computer's Cards: "
+        %span#computers_cards
+      %div
+        %span "Total: "
+        %span#total_cards
+      %div
+        %span "Rounds :"
+        %span#rounds
+    =button_tag "Start Game", :id=>'startgame'
+    =button_tag "Play Hand", :id=>'playhand'
+    =button_tag "Speed Play", :id=>'speedplay'

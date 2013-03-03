@@ -1,6 +1,9 @@
+body {
+  background-color: green;
+}
+
 #board {
   width: 800px;
-  border: 1px solid red;
   vertical-align: top;
 }
 
@@ -16,5 +19,11 @@
   display: none;
   vertical-align: middle;
   text-align: center;
+}
+
+#player_hand, #computer_hand {
+  background-size: cover;
+  width: 201px;
+  height: 251px;
 }
 

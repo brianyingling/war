@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require 'war'
 //= require 'underscore-min'
+//= require '/foundation/javascripts/foundation.min.js'
+//= require 'war'
+

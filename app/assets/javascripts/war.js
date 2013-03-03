@@ -25,13 +25,14 @@ function start_game() {
   player_hand = deck.slice(0,26);
   computer_hand = deck.slice(26,52);
   play_hand();
-  show_cards();
   game_started = true;
   return false;
 }
 
-function show_cards() {
+function show_cards(player_card,computer_card) {
   $('.card').css('display','inline-block');
+  $('#player_hand').css('background-image','url("/assets/cards/'+player_card+'.svg")');
+  $('#computer_hand').css('background-image','url("/assets/cards/'+computer_card+'.svg")');
   $('.card').show();
 }
 
@@ -50,8 +51,7 @@ function create_deck() {
 function play_hand() {
   // multidimensional array
   // [value, suit], e.g. [2, 'H']
-  $('#player_hand').text(player_hand[0]);
-  $('#computer_hand').text(computer_hand[0]);
+  show_cards(player_hand[0].join(''), computer_hand[0].join('') );
   if(player_hand[0][0] > computer_hand[0][0]) {
     player_hand.push(computer_hand.shift());
     player_hand.push(player_hand.shift());
