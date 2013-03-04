@@ -1,30 +1,35 @@
 .row
-  .eight.columns
+  .nine.columns
     %h1 It's War!
+    .row
+      .two.columns
+        %h3#player Player
+      .seven.columns
+        %h3#computer Computer
     #result
     #board
       #player_hand.card
       #computer_hand.card
-    .cards
-      %div
-        %span "Player's Cards: "
-        %span#players_cards
-      %div
-        %span "Computer's Cards: "
-        %span#computers_cards
-      %div
-        %span "Total: "
-        %span#total_cards
-      %div
-        %span "Rounds :"
-        %span#rounds
-    =button_tag "Start Game", :id=>'startgame'
-    =button_tag "Play Hand", :id=>'playhand'
-    =button_tag "Speed Play", :id=>'speedplay'
-  .four.columns
-    %h3 Leaderboard
+      .cards
+        %div
+          %span Player's Cards:
+          %span#players_cards
+        %div
+          %span Computer's Cards:
+          %span#computers_cards
+        %div
+          %span Total:
+          %span#total_cards
+        %div
+          %span Rounds :
+          %span#rounds
+      =button_tag "Start Game", :id=>'startgame', :class=>'button'
+      =button_tag "Play Hand", :id=>'playhand', :class=>'button'
+      =button_tag "Speed Play", :id=>'speedplay', :class=>'button'
+  .three.columns
     #leaderboard
+      %h3 Leaderboard
       - @leaderboard.each do |user|
         .record
-          = user[0]
+          = user[0].capitalize
           = user[1]

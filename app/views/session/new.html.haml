@@ -1,7 +1,8 @@
 .row
   .five.columns
     %h1 Login
-    %div= flash[:notice] if flash[:notice].present?
+    - if flash[:notice].present?
+      %div.errors= flash[:notice]
     =form_tag '/login' do
       =label_tag "Username"
       =text_field_tag "username"

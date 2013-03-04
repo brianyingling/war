@@ -2,8 +2,6 @@ $(function() {
   $('#startgame').click(start_game);
   $('#playhand').click(play_hand);
   $('#speedplay').click(speed_play);
-
-
 });
 
 var player_hand = [];
@@ -19,7 +17,6 @@ function speed_play() {
   timer = setInterval(play_hand,1);
 }
 
-
 function start_game() {
   deck = create_deck();
   player_hand = deck.slice(0,26);
@@ -31,6 +28,7 @@ function start_game() {
 }
 
 function show_cards(player_card,computer_card) {
+  $('#board').css('height','439px');
   $('.card').css('display','inline-block');
   $('#player_hand').css('background-image','url("/assets/cards/'+player_card+'.svg")');
   $('#computer_hand').css('background-image','url("/assets/cards/'+computer_card+'.svg")');
@@ -76,10 +74,8 @@ function play_hand() {
 }
 
 function highlight_winning_hand(winner, loser) {
-  $(winner).css('border','10px solid yellow').css('border-radius','15px');
-  $(winner).css('-webkit-transform','scale(1.25)');
-  $(loser).css('border','0px solid black');
-  $(loser).css('-webkit-transform','scale(1)');
+  $(winner).removeClass('loser').addClass('winner');
+  $(loser).removeClass('winner').addClass('loser');
 }
 
 function tie_breaker(counter) {
@@ -109,14 +105,12 @@ function check_for_winner() {
       clearInterval(timer);
       winner = true;
     }
-    else if(computer_hand.length == 52) {
+    else {
       $('#result').html('The computer wins!').toggle();
       clearInterval(timer);
       winner = false;
     }
-    else {
-      return false;
-    }
+
     var token = $('input[name=authenticity_token]').val();
 
     // send winner data via AJAX
