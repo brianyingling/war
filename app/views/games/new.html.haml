@@ -1,15 +1,10 @@
 .row
-  .twelve.columns
-    %h1 New Game
+  .eight.columns
+    %h1 It's War!
+    #result
     #board
       #player_hand.card
-      #deck.card
       #computer_hand.card
-    #leaderboard
-      .record
-      - @leaderboard.each do |user|
-        = user[0]
-        = user[1]
     .cards
       %div
         %span "Player's Cards: "
@@ -26,3 +21,10 @@
     =button_tag "Start Game", :id=>'startgame'
     =button_tag "Play Hand", :id=>'playhand'
     =button_tag "Speed Play", :id=>'speedplay'
+  .four.columns
+    %h3 Leaderboard
+    #leaderboard
+      - @leaderboard.each do |user|
+        .record
+          = user[0]
+          = user[1]

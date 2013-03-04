@@ -27,6 +27,7 @@ function start_game() {
   play_hand();
   game_started = true;
   return false;
+  rounds = 0;
 }
 
 function show_cards(player_card,computer_card) {
@@ -52,13 +53,16 @@ function play_hand() {
   // multidimensional array
   // [value, suit], e.g. [2, 'H']
   show_cards(player_hand[0].join(''), computer_hand[0].join('') );
+  $('#result').hide();
   if(player_hand[0][0] > computer_hand[0][0]) {
     player_hand.push(computer_hand.shift());
     player_hand.push(player_hand.shift());
+    highlight_winning_hand('#player_hand','#computer_hand');
   }
   else if(player_hand[0][0] < computer_hand[0][0]) {
     computer_hand.push(player_hand.shift());
     computer_hand.push(computer_hand.shift());
+    highlight_winning_hand('#computer_hand','#player_hand');
   }
   else {
     tie_breaker(2);
@@ -68,7 +72,14 @@ function play_hand() {
   $('#computers_cards').html(computer_hand.length);
   $('#total_cards').html(player_hand.length + computer_hand.length);
   check_for_winner();
-  $('#rounds').html(rounds++);
+  $('#rounds').html(rounds += 1);
+}
+
+function highlight_winning_hand(winner, loser) {
+  $(winner).css('border','10px solid yellow').css('border-radius','15px');
+  $(winner).css('-webkit-transform','scale(1.25)');
+  $(loser).css('border','0px solid black');
+  $(loser).css('-webkit-transform','scale(1)');
 }
 
 function tie_breaker(counter) {
@@ -94,16 +105,14 @@ function check_for_winner() {
   }
   if(player_hand.length == 52 || computer_hand.length == 52) {
     if(player_hand.length == 52) {
-      alert('player wins!');
+      $('#result').html('You win!').toggle();
       clearInterval(timer);
       winner = true;
-      rounds = 0;
     }
     else if(computer_hand.length == 52) {
-      alert('computer wins!');
+      $('#result').html('The computer wins!').toggle();
       clearInterval(timer);
       winner = false;
-      rounds = 0;
     }
     else {
       return false;

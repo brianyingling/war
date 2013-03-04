@@ -25,5 +25,24 @@ body {
   background-size: cover;
   width: 201px;
   height: 251px;
+  -webkit-transition: border 0.5s ease-in;
+  margin: 30px;
+}
+#result {
+  font-family: Arial,Helvetica,Sans-serif;
+  font-size: 36px;
+  color: #fff;
+  background-color: red;
+  display: none;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid maroon;
 }
 
+.record {
+  font-family: 'Garamond';
+  font-size: 24px;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
