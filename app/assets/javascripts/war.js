@@ -10,11 +10,12 @@ var game_started = false;
 var timer;
 var c = 0;
 var rounds = 0;
+$('#rounds').html(rounds);
 
 // plays until a winner
 function speed_play() {
   start_game();
-  timer = setInterval(play_hand,1);
+  timer = setInterval(play_hand,20);
 }
 
 function start_game() {
@@ -23,15 +24,27 @@ function start_game() {
   computer_hand = deck.slice(26,52);
   play_hand();
   game_started = true;
-  return false;
+  show_menu();
   rounds = 0;
+  return false;
+}
+
+function show_menu() {
+  if(game_started) {
+    $('#playhand, #speedplay').show();
+    $('#startgame').hide();
+  } else {
+    $('#startgame').show();
+    $('#playhand, #speedplay').hide();
+  }
+
 }
 
 function show_cards(player_card,computer_card) {
   $('#board').css('height','439px');
   $('.card').css('display','inline-block');
-  $('#player_hand').css('background-image','url("/assets/cards/'+player_card+'.svg")');
-  $('#computer_hand').css('background-image','url("/assets/cards/'+computer_card+'.svg")');
+  $('#player_hand').css('background-image','url("/assets/cards/'+player_card+'.svg")').removeClass('animate');
+  $('#computer_hand').css('background-image','url("/assets/cards/'+computer_card+'.svg")').removeClass('animate');
   $('.card').show();
 }
 
@@ -102,17 +115,22 @@ function check_for_winner() {
   if(player_hand.length == 52 || computer_hand.length == 52) {
     if(player_hand.length == 52) {
       $('#result').html('You win!').toggle();
+      $('#player_hand').addClass('animate');
+      //animate_cards($('#player_hand'));
       clearInterval(timer);
       winner = true;
     }
     else {
       $('#result').html('The computer wins!').toggle();
+      $('#computer_hand').addClass('animate');
+      //animate_cards($('#computer_hand'));
       clearInterval(timer);
       winner = false;
     }
 
+    game_started = false;
     var token = $('input[name=authenticity_token]').val();
-
+    show_menu();
     // send winner data via AJAX
     $.ajax({
       dataType:'json',
@@ -120,6 +138,17 @@ function check_for_winner() {
       url:'/games',
       data:{authenticity_token:token,result:winner}
     }).done(display_leaderboard)
+  }
+
+  function animate_cards(selector) {
+    var top = selector.css('top');
+    var left = selector.css('left');
+    for(var i=0; i<500;i++) {
+      top += i;
+      left += i*1.1;
+      selector.css('top',top + 'px');
+      selector.css('left',left+'px');
+    }
   }
 
   function display_leaderboard(msg) {
