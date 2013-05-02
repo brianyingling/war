@@ -4,6 +4,7 @@ War::Application.routes.draw do
 get '/users/new'=>'users#new'
 
 post '/games'=>'games#create'
+post '/games/display_leaderboard'=>'games#display_leaderboard'
 
 get '/login'=>'session#new'
 post '/login' =>'session#create'

@@ -2,6 +2,8 @@ $(function() {
   $('#startgame').click(start_game);
   $('#playhand').click(play_hand);
   $('#speedplay').click(speed_play);
+  $('#player_hand').click(play_hand);
+
 });
 
 var player_hand = [];
@@ -152,7 +154,8 @@ function check_for_winner() {
   }
 
   function display_leaderboard(msg) {
-
+    alert('got here');
+    console.log(msg);
   }
 
 

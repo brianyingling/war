@@ -1,8 +1,8 @@
 .row
   .twelve.columns
     %ul.nav-bar
-      %li.active.support.tag
-        =link_to("Hello #{@auth.name.capitalize}", nil) if @auth
-      %li= link_to "Register", new_user_path
+      %li= link_to "Home", root_path
+      %li.active.support.tag= link_to("Hello #{@auth.name.capitalize}", nil) if @auth
+      %li= link_to "Register", new_user_path if !@auth
       %li= @auth ? link_to("Logout", login_path, :method=>'delete') : link_to("Login", login_path)
       %li= link_to "New Game", new_game_path

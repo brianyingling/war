@@ -3,7 +3,7 @@
     %h1 It's War!
     #result
     .row
-      .two.columns
+      .three.columns
         %h3#player Player
       .seven.columns
         %h3#computer Computer
@@ -23,9 +23,9 @@
         %div
           %span Rounds :
           %span#rounds
-      =button_tag "Start Game", :id=>'startgame', :class=>'button'
-      =button_tag "Play Hand", :id=>'playhand', :class=>'button'
-      =button_tag "Speed Play", :id=>'speedplay', :class=>'button'
+      =button_tag "Start Game", :id=>'startgame', :class=>'button radius'
+      =button_tag "Play Hand", :id=>'playhand', :class=>'button radius'
+      =button_tag "Speed Play", :id=>'speedplay', :class=>'button radius'
   .three.columns
     #leaderboard
       %h3 Leaderboard
