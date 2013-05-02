@@ -154,7 +154,6 @@ function check_for_winner() {
   }
 
   function display_leaderboard(msg) {
-    alert('got here');
     console.log(msg);
   }
 
